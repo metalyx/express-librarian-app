@@ -4,6 +4,7 @@ const authRouter = require('./routers/authRouter');
 const booksRouter = require('./routers/booksRouter');
 const adminRouter = require('./routers/adminRouter');
 const dotenv = require('dotenv');
+const cors = require('cors');
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
