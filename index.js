@@ -18,6 +18,7 @@ app.use(`${rootAPIPath}/books`, booksRouter);
 
 const start = async () => {
     try {
+        console.log('connecting to db');
         await mongoose.connect(
             `mongodb+srv://${process.env.MONGO_LOGIN}:${process.env.MONGO_PASSWORD}@cluster0.4odlt8i.mongodb.net/?retryWrites=true&w=majority`
         );
