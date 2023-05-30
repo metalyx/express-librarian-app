@@ -52,6 +52,15 @@ class authController {
     }
     async login(req, res) {
         try {
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                return res.status(400).json({
+                    message: 'Validation errors',
+                    ...errors,
+                });
+            }
+
             const { username, password } = req.body;
 
             const user = await User.findOne({ username });
