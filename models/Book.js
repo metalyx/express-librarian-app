@@ -6,6 +6,7 @@ const Book = new Schema({
     authors: [{ type: String, ref: 'Author' }], // Names of Authors
     description: { type: String }, // Book description
     cover: { type: String }, // URL of image
+    isAvailable: { type: Boolean, required: true },
 });
 
 module.exports = model('Book', Book);
