@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const { secret } = require('../config');
 
 module.exports = function (roles) {
     return function (req, res, next) {
@@ -13,7 +12,10 @@ module.exports = function (roles) {
                 return res.status(403).json({ message: 'Unauthorized' });
             }
 
-            const { roles: userRoles } = jwt.verify(token, secret);
+            const { roles: userRoles } = jwt.verify(
+                token,
+                process.env.SECRET_JWT
+            );
             let hasRole = false;
             userRoles.forEach((role) => {
                 if (roles.includes(role)) {
