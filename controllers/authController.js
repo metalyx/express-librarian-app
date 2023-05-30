@@ -93,6 +93,25 @@ class authController {
             res.status(400).json({ message: 'getUsers error' });
         }
     }
+    async checkToken(req, res) {
+        try {
+            const { token } = req.body;
+
+            if (!token) {
+                return res
+                    .status(403)
+                    .json({ error: 'Token was not provided' });
+            }
+
+            const verify = jwt.verify(token, process.env.SECRET_JWT);
+
+            res.status(200).json({
+                ...verify,
+            });
+        } catch (e) {
+            res.status(401).json({ ...e });
+        }
+    }
 }
 
 module.exports = new authController();

@@ -2,8 +2,6 @@ const Router = require('express');
 const router = new Router();
 const controller = require('../controllers/authController');
 const { check } = require('express-validator');
-const authMiddleware = require('../middleware/authMiddleware');
-const roleMiddleware = require('../middleware/roleMiddleware');
 
 router.post(
     '/registration',
@@ -21,6 +19,8 @@ router.post(
     [check('username', 'Username cannot be empty').notEmpty()],
     controller.login
 );
+
+router.post('/checkToken', controller.checkToken);
 // router.get('/users', roleMiddleware(['ADMIN']), controller.getUsers);
 
 module.exports = router;
