@@ -1,16 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const authRouter = require('./authRouter.js');
+const authRouter = require('./routers/authRouter');
+const booksRouter = require('./routers/booksRouter');
+const { dbLogin, dbPassword } = require('./config');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
 app.use('/auth', authRouter);
+app.use('/books', booksRouter);
 
 const start = async () => {
     try {
         await mongoose.connect(
-            `mongodb+srv://library:w3C2FL93kNLKAY6H@cluster0.4odlt8i.mongodb.net/?retryWrites=true&w=majority`
+            `mongodb+srv://${dbLogin}:${dbPassword}@cluster0.4odlt8i.mongodb.net/?retryWrites=true&w=majority`
         );
         app.listen(PORT, () => console.log(`server started, port ${PORT}`));
     } catch (e) {
