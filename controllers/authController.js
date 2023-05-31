@@ -95,11 +95,11 @@ class authController {
     }
     async checkToken(req, res) {
         try {
-            const { token } = req.body;
+            let token = req.headers.authorization?.split(' ')[1];
 
             if (!token) {
                 return res
-                    .status(403)
+                    .status(401)
                     .json({ error: 'Token was not provided' });
             }
 
@@ -110,6 +110,26 @@ class authController {
             });
         } catch (e) {
             res.status(401).json({ ...e });
+        }
+    }
+    async getUserInfo(req, res) {
+        try {
+            const token = req.headers.authorization?.split(' ')[1];
+
+            if (!token) {
+                return res.status(401).json({ message: 'No token' });
+            }
+
+            const { id } = jwt.verify(token, process.env.SECRET_JWT);
+
+            const userInfo = await User.findById(id).select(
+                'username roles booked'
+            );
+
+            res.status(200).json(userInfo);
+        } catch (e) {
+            console.log(e);
+            return res.status(500).json({ message: 'Error occured', ...e });
         }
     }
 }
