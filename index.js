@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRouter = require('./routers/authRouter');
 const booksRouter = require('./routers/booksRouter');
-const adminRouter = require('./routers/adminRouter');
+const staffRouter = require('./routers/staffRouter');
 const dotenv = require('dotenv');
 const cors = require('cors');
 dotenv.config();
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(`${rootAPIPath}/auth`, authRouter);
-app.use(`${rootAPIPath}/admin`, adminRouter);
+app.use(`${rootAPIPath}/staff`, staffRouter);
 app.use(`${rootAPIPath}/books`, booksRouter);
 
 const start = async () => {
