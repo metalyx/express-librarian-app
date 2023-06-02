@@ -4,7 +4,7 @@ const roleMiddleware = require('../middleware/roleMiddleware');
 const router = new Router();
 
 router.get(
-    '/getUsers',
+    '/users',
     roleMiddleware(['LIBRARIAN', 'ADMIN']),
     staffController.getUsers
 );

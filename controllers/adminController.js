@@ -1,3 +1,5 @@
+const User = require('../models/User');
+
 class adminController {
     async getUsers(req, res) {
         try {

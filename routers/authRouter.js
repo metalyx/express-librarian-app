@@ -22,7 +22,6 @@ router.post(
 );
 
 router.get('/checkToken', controller.checkToken);
-// router.get('/users', roleMiddleware(['ADMIN']), controller.getUsers);
 
 router.get('/getUserInfo', authMiddleware, controller.getUserInfo);
 

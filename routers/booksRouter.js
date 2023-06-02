@@ -10,10 +10,5 @@ router.post(
     roleMiddleware(['ADMIN', 'LIBRARIAN']),
     booksController.createBook
 );
-router.post(
-    '/booksUpdateAll',
-    roleMiddleware(['ADMIN', 'LIBRARIAN']),
-    booksController.updateAll
-);
 
 module.exports = router;

@@ -31,23 +31,6 @@ class booksController {
             });
         }
     }
-
-    async updateAll(req, res) {
-        try {
-            const updated = await Book.find().updateMany(
-                {},
-                { isAvailable: true }
-            );
-
-            if (!updated) {
-                res.status(500).json(updated);
-            }
-            res.status(200).json({ message: 'success' });
-        } catch (e) {
-            console.log(e);
-            res.status(500).json(e);
-        }
-    }
 }
 
 module.exports = new booksController();
