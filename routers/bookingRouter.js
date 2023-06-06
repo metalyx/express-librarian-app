@@ -14,9 +14,9 @@ router.get(
     bookingController.getAllBookings
 );
 router.post(
-    '/cancell',
+    '/cancel',
     roleMiddleware(['ADMIN', 'LIBRARIAN']),
-    bookingController.cancellBooking
+    bookingController.cancelBooking
 );
 
 module.exports = router;

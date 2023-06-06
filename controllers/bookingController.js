@@ -57,7 +57,7 @@ class bookingController {
         }
     }
 
-    async cancellBooking(req, res) {
+    async cancelBooking(req, res) {
         const { _id } = req.body;
 
         if (!_id) {
@@ -69,7 +69,6 @@ class bookingController {
         });
 
         const booker = await User.findByIdAndUpdate(updatedBooking.booker, {
-            // $pull: { bookings: updatedBooking._id },
             $pull: { bookings: _id },
         });
 
@@ -84,7 +83,29 @@ class bookingController {
         try {
             const bookings = await Booking.find();
 
-            res.status(200).json(bookings);
+            const deepBookings = await Promise.all(
+                bookings.map(async (booking) => {
+                    try {
+                        const booker = await User.findById(
+                            booking.booker
+                        ).select('username roles');
+                        const book = await Book.findById(booking.book);
+
+                        const newBooking = {
+                            date: booking.date,
+                            isActive: booking.isActive,
+                            booker,
+                            book,
+                        };
+
+                        return newBooking;
+                    } catch (e) {
+                        throw new Error(e);
+                    }
+                })
+            );
+
+            res.status(200).json(deepBookings);
         } catch (e) {
             unexpectedError(res, e);
         }
