@@ -92,6 +92,7 @@ class bookingController {
                         const book = await Book.findById(booking.book);
 
                         const newBooking = {
+                            _id: booking._id,
                             date: booking.date,
                             isActive: booking.isActive,
                             booker,
